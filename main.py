@@ -12,7 +12,7 @@ fundo = pygame.image.load("recursos/fundolua.png")
 fundoStart = pygame.image.load("recursos/fundoinicio.png")
 fundoDead = pygame.image.load("recursos/fundofogo.png")
 
-missel = pygame.image.load("recursos/forca.png")
+forca = pygame.image.load("recursos/forca.png")
 tamanho = (800,600)
 tela = pygame.display.set_mode( tamanho ) 
 pygame.display.set_caption("Iron Man do Marcão")
@@ -35,14 +35,14 @@ def jogar(nome):
     posicaoYPersona = 300
     movimentoXPersona  = 0
     movimentoYPersona  = 0
-    posicaoXMissel = 400
-    posicaoYMissel = -240
-    velocidadeMissel = 1
+    posicaoXforca = 400
+    posicaoYforca = -240
+    velocidadeforca = 1
     pontos = 0
     larguraPersona = 250
     alturaPersona = 127
-    larguaMissel  = 50
-    alturaMissel  = 250
+    larguaforca  = 50
+    alturaforca  = 250
     dificuldade  = 20
 
     while True:
@@ -85,28 +85,28 @@ def jogar(nome):
         #pygame.draw.circle(tela, preto, (posicaoXPersona,posicaoYPersona), 40, 0 )
         tela.blit( iron, (posicaoXPersona, posicaoYPersona) )
         
-        posicaoYMissel = posicaoYMissel + velocidadeMissel
-        if posicaoYMissel > 600:
-            posicaoYMissel = -240
+        posicaoYforca = posicaoYforca + velocidadeforca
+        if posicaoYforca > 600:
+            posicaoYforca = -240
             pontos = pontos + 1
-            velocidadeMissel = velocidadeMissel + 1
-            posicaoXMissel = random.randint(0,800)
+            velocidadeforca = velocidadeforca + 1
+            posicaoXforca = random.randint(0,800)
             pygame.mixer.Sound.play(missileSound)
             
             
-        tela.blit( missel, (posicaoXMissel, posicaoYMissel) )
+        tela.blit( forca, (posicaoXforca, posicaoYforca) )
         
         texto = fonte.render(nome+"- Pontos: "+str(pontos), True, branco)
         tela.blit(texto, (10,10))
         
         pixelsPersonaX = list(range(posicaoXPersona, posicaoXPersona+larguraPersona))
         pixelsPersonaY = list(range(posicaoYPersona, posicaoYPersona+alturaPersona))
-        pixelsMisselX = list(range(posicaoXMissel, posicaoXMissel + larguaMissel))
-        pixelsMisselY = list(range(posicaoYMissel, posicaoYMissel + alturaMissel))
+        pixelsforcaX = list(range(posicaoXforca, posicaoXforca + larguaforca))
+        pixelsforcaY = list(range(posicaoYforca, posicaoYforca + alturaforca))
         
-        #print( len( list( set(pixelsMisselX).intersection(set(pixelsPersonaX))   ) )   )
-        if  len( list( set(pixelsMisselY).intersection(set(pixelsPersonaY))) ) > dificuldade:
-            if len( list( set(pixelsMisselX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
+        #print( len( list( set(pixelsforcaX).intersection(set(pixelsPersonaX))   ) )   )
+        if  len( list( set(pixelsforcaY).intersection(set(pixelsPersonaY))) ) > dificuldade:
+            if len( list( set(pixelsforcaX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
                 dead(nome, pontos)
         
     
