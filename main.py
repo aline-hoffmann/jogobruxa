@@ -99,16 +99,17 @@ def jogar(nome):
             posicaoXforca = random.randint(0,800)
             pygame.mixer.Sound.play(missileSound)
 
-        posicaoYtocha = posicaoYtochaa + velocidadetocha
+        posicaoYtocha = posicaoYtocha + velocidadetocha
         if posicaoYtocha > 600:
             posicaoYtocha = -240
             pontos = pontos + 1
             velocidadetocha = velocidadetocha + 1
-            posicaoXtochaa = random.randint(0,800)
+            posicaoXtocha = random.randint(0,800)
             pygame.mixer.Sound.play(missileSound)    
             
             
         tela.blit( forca, (posicaoXforca, posicaoYforca) )
+        tela.blit( tocha, (posicaoXtocha, posicaoYtocha) )
         
         texto = fonte.render(nome+"- Pontos: "+str(pontos), True, branco)
         tela.blit(texto, (10,10))
@@ -117,12 +118,16 @@ def jogar(nome):
         pixelsPersonaY = list(range(posicaoYPersona, posicaoYPersona+alturaPersona))
         pixelsforcaX = list(range(posicaoXforca, posicaoXforca + larguaforca))
         pixelsforcaY = list(range(posicaoYforca, posicaoYforca + alturaforca))
-        pixelsforcaX = list(range(posicaoXforcagit, posicaoXforca + larguaforca))
-        pixelsforcaY = list(range(posicaoYforca, posicaoYforca + alturaforca))
+        pixelstochaX = list(range(posicaoXtocha, posicaoXtocha + larguatocha))
+        pixelstochaY = list(range(posicaoYtocha, posicaoYtocha + alturatocha))
         
         #print( len( list( set(pixelsforcaX).intersection(set(pixelsPersonaX))   ) )   )
         if  len( list( set(pixelsforcaY).intersection(set(pixelsPersonaY))) ) > dificuldade:
             if len( list( set(pixelsforcaX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
+                dead(nome, pontos)
+
+        if  len( list( set(pixelstochaY).intersection(set(pixelsPersonaY))) ) > dificuldade:
+            if len( list( set(pixelstochaX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
                 dead(nome, pontos)
         
     
