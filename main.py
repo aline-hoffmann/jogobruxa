@@ -18,12 +18,12 @@ tamanho = (800,600)
 tela = pygame.display.set_mode( tamanho ) 
 pygame.display.set_caption("Iron Man do Marcão")
 pygame.display.set_icon(icone)
-missileSound = pygame.mixer.Sound("recursos/missile.wav")
-explosaoSound = pygame.mixer.Sound("recursos/explosao.wav")
+missileSound = pygame.mixer.Sound("recursos/arremessos.wav")
+explosaoSound = pygame.mixer.Sound("recursos/som_morte.wav")
 fonte = pygame.font.SysFont("arial",28)
 fonteStart = pygame.font.SysFont("arial",55)
 fonteMorte = pygame.font.SysFont("arial",120)
-pygame.mixer.music.load("recursos/ironsound.mp3")
+pygame.mixer.music.load("recursos/som_jogo.wav")
 
 branco = (255,255,255)
 preto = (0, 0 ,0 )
@@ -33,7 +33,7 @@ def jogar(nome):
     pygame.mixer.Sound.play(missileSound)
     pygame.mixer.music.play(-1)
     posicaoXPersona = 400
-    posicaoYPersona = 300
+    posicaoYPersona = 670
     movimentoXPersona  = 0
     movimentoYPersona  = 0
     posicaoXforca = 400
@@ -63,14 +63,7 @@ def jogar(nome):
                 movimentoXPersona = 0
             elif evento.type == pygame.KEYUP and evento.key == pygame.K_LEFT:
                 movimentoXPersona = 0
-            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_UP:
-                movimentoYPersona = -10
-            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_DOWN:
-                movimentoYPersona = 10
-            elif evento.type == pygame.KEYUP and evento.key == pygame.K_UP:
-                movimentoYPersona = 0
-            elif evento.type == pygame.KEYUP and evento.key == pygame.K_DOWN:
-                movimentoYPersona = 0
+
                 
         posicaoXPersona = posicaoXPersona + movimentoXPersona            
         posicaoYPersona = posicaoYPersona + movimentoYPersona            
