@@ -13,6 +13,7 @@ fundoStart = pygame.image.load("recursos/fundoinicio.png")
 fundoDead = pygame.image.load("recursos/fundofogo.png")
 
 forca = pygame.image.load("recursos/forca.png")
+tocha = pygame.image.load("recursos/tocha.png")
 tamanho = (800,600)
 tela = pygame.display.set_mode( tamanho ) 
 pygame.display.set_caption("Iron Man do Marcão")
@@ -37,12 +38,17 @@ def jogar(nome):
     movimentoYPersona  = 0
     posicaoXforca = 400
     posicaoYforca = -240
+    posicaoXtocha = 100
+    posicaoYtocha = -350
     velocidadeforca = 1
+    velocidadetocha = 1
     pontos = 0
     larguraPersona = 250
     alturaPersona = 127
     larguaforca  = 50
     alturaforca  = 250
+    larguatocha  = 50
+    alturatocha  = 250
     dificuldade  = 20
 
     while True:
@@ -92,6 +98,14 @@ def jogar(nome):
             velocidadeforca = velocidadeforca + 1
             posicaoXforca = random.randint(0,800)
             pygame.mixer.Sound.play(missileSound)
+
+        posicaoYtocha = posicaoYtochaa + velocidadetocha
+        if posicaoYtocha > 600:
+            posicaoYtocha = -240
+            pontos = pontos + 1
+            velocidadetocha = velocidadetocha + 1
+            posicaoXtochaa = random.randint(0,800)
+            pygame.mixer.Sound.play(missileSound)    
             
             
         tela.blit( forca, (posicaoXforca, posicaoYforca) )
@@ -102,6 +116,8 @@ def jogar(nome):
         pixelsPersonaX = list(range(posicaoXPersona, posicaoXPersona+larguraPersona))
         pixelsPersonaY = list(range(posicaoYPersona, posicaoYPersona+alturaPersona))
         pixelsforcaX = list(range(posicaoXforca, posicaoXforca + larguaforca))
+        pixelsforcaY = list(range(posicaoYforca, posicaoYforca + alturaforca))
+        pixelsforcaX = list(range(posicaoXforcagit, posicaoXforca + larguaforca))
         pixelsforcaY = list(range(posicaoYforca, posicaoYforca + alturaforca))
         
         #print( len( list( set(pixelsforcaX).intersection(set(pixelsPersonaX))   ) )   )
