@@ -43,12 +43,12 @@ def jogar(nome):
     velocidadeforca = 1
     velocidadetocha = 1
     pontos = 0
-    larguraPersona = 250
-    alturaPersona = 127
-    larguaforca  = 50
-    alturaforca  = 250
-    larguatocha  = 50
-    alturatocha  = 250
+    larguraPersona = 170
+    alturaPersona = 170
+    larguaforca  = 100
+    alturaforca  = 100
+    larguatocha  = 100
+    alturatocha  = 100
     dificuldade  = 20
 
     while True:
