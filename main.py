@@ -7,10 +7,11 @@ pygame.init()
 
 relogio = pygame.time.Clock()
 icone  = pygame.image.load("recursos/icone.png")
-iron = pygame.image.load("recursos/bruxa.png")
+bruxa = pygame.image.load("recursos/bruxa.png")
 fundo = pygame.image.load("recursos/fundolua.png")
 fundoStart = pygame.image.load("recursos/fundoinicio.png")
 fundoDead = pygame.image.load("recursos/fundofogo.png")
+corvo = pygame.image.load("recursos/corvo.png")
 
 forca = pygame.image.load("recursos/forca.png")
 tocha = pygame.image.load("recursos/tocha.png")
@@ -18,8 +19,8 @@ tamanho = (800,600)
 tela = pygame.display.set_mode( tamanho ) 
 pygame.display.set_caption("Iron Man do Marcão")
 pygame.display.set_icon(icone)
-missileSound = pygame.mixer.Sound("recursos/arremessos.wav")
-explosaoSound = pygame.mixer.Sound("recursos/som_morte.wav")
+arremessosSound = pygame.mixer.Sound("recursos/arremessos.wav")
+morteSound = pygame.mixer.Sound("recursos/som_morte.wav")
 fonte = pygame.font.SysFont("arial",28)
 fonteStart = pygame.font.SysFont("arial",55)
 fonteMorte = pygame.font.SysFont("arial",120)
@@ -30,10 +31,15 @@ preto = (0, 0 ,0 )
 
 
 def jogar(nome):
-    pygame.mixer.Sound.play(missileSound)
+    pygame.mixer.Sound.play(arremessosSound)
     pygame.mixer.music.play(-1)
     posicaoXPersona = 400
     posicaoYPersona = 670
+    corvo = 50
+    corvo = 50
+    escalacorvo = 1
+    velocidadecorvo = 0.007
+    crescendocorvo = True
     movimentoXPersona  = 0
     movimentoYPersona  = 0
     posicaoXforca = 400
@@ -64,7 +70,16 @@ def jogar(nome):
             elif evento.type == pygame.KEYUP and evento.key == pygame.K_LEFT:
                 movimentoXPersona = 0
 
-                
+        if crescendocorvo:
+            escalacorvo += velocidadecorvo
+            if escalacorvo >= 1.5:
+                crescendocorvo = False
+        
+        else:
+            escalacorvo -= velocidadecorvo
+            if escalacorvo <= 1:
+                crescendocorvo = True
+        
         posicaoXPersona = posicaoXPersona + movimentoXPersona            
         posicaoYPersona = posicaoYPersona + movimentoYPersona            
         
@@ -82,7 +97,11 @@ def jogar(nome):
         tela.fill(branco)
         tela.blit(fundo, (0,0) )
         #pygame.draw.circle(tela, preto, (posicaoXPersona,posicaoYPersona), 40, 0 )
-        tela.blit( iron, (posicaoXPersona, posicaoYPersona) )
+        tela.blit( bruxa, (posicaoXPersona, posicaoYPersona) )
+        corvoX = int(corvo.get_width() * escalacorvo)
+        corvoY = int(corvo.get_height() * escalacorvo)
+        corvoredimencionado = pygame.transform.scale(corvo, (corvoX,corvoY))
+        tela.blit(corvoredimencionado, (corvoX, corvoY))
         
         posicaoYforca = posicaoYforca + velocidadeforca
         if posicaoYforca > 600:
@@ -90,7 +109,7 @@ def jogar(nome):
             pontos = pontos + 1
             velocidadeforca = velocidadeforca + 1
             posicaoXforca = random.randint(0,800)
-            pygame.mixer.Sound.play(missileSound)
+            pygame.mixer.Sound.play(arremessosSound)
 
         posicaoYtocha = posicaoYtocha + velocidadetocha
         if posicaoYtocha > 600:
@@ -98,7 +117,7 @@ def jogar(nome):
             pontos = pontos + 1
             velocidadetocha = velocidadetocha + 1
             posicaoXtocha = random.randint(0,800)
-            pygame.mixer.Sound.play(missileSound)    
+            pygame.mixer.Sound.play(arremessosSound)    
             
             
         tela.blit( forca, (posicaoXforca, posicaoYforca) )
@@ -131,7 +150,7 @@ def jogar(nome):
 
 def dead(nome, pontos):
     pygame.mixer.music.stop()
-    pygame.mixer.Sound.play(explosaoSound)
+    pygame.mixer.Sound.play(morteSound)
     
     jogadas  = {}
     try:
