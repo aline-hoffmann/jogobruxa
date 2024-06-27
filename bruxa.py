@@ -2,6 +2,7 @@ import pygame
 import random
 import os
 from tkinter import simpledialog
+from extras.funcoes import LimparTela
 
 pygame.init()
 
